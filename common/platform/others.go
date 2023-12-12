@@ -8,12 +8,18 @@ import (
 	"path/filepath"
 )
 
+var assetDirPath = ""
+
 func ExpandEnv(s string) string {
 	return os.ExpandEnv(s)
 }
 
 func LineSeparator() string {
 	return "\n"
+}
+
+func SetAssetPath(path string) {
+	assetDirPath = path
 }
 
 func GetToolLocation(file string) string {
@@ -23,7 +29,10 @@ func GetToolLocation(file string) string {
 
 // GetAssetLocation searches for `file` in certain locations
 func GetAssetLocation(file string) string {
-	assetPath := NewEnvFlag(AssetLocation).GetValue(getExecutableDir)
+	assetPath := assetDirPath
+	if assetPath == "" {
+		assetPath = NewEnvFlag(AssetLocation).GetValue(getExecutableDir)
+	}
 	defPath := filepath.Join(assetPath, file)
 	for _, p := range []string{
 		defPath,
