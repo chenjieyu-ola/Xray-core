@@ -72,7 +72,7 @@ func (dl *DefaultListener) Listen(ctx context.Context, addr net.Addr, sockopt *S
 				lc.KeepAlive = time.Duration(-1)
 			}
 			if sockopt.TcpMptcp {
-				lc.SetMultipathTCP(true)
+				//lc.SetMultipathTCP(true)
 			}
 		}
 	case *net.UnixAddr:
